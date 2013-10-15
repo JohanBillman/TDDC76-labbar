@@ -14,7 +14,7 @@ för trädnodklasserna definieras. Se vidare README i den mappen.
 
 Mappen Variable_Table
 ---------------------
-ybuhhubuh
+
 Om VG-nivån löses ska denna mapp införas vid sidan av mapparna Calculator och
 Expression. Filerna för klassen Variable_Table ska finnas här, tillsammans med
 eventuellt testprogram för Variable_Table.
