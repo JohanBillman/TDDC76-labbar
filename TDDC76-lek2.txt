@@ -1,0 +1,19 @@
+Structs:
+…
+
+
+Konvertering till gemener:
+#include <algorithm>
+
+string test{"HEJ"}
+//ger en iterator
+transform(test.begin(),test.end(),test.begin(),::tolower);
+
+cout<<test
+
+int x;
+int& y=x; är referens till datan som x pekar på
+int* z = &x; z är pekarare till minnesutrummet som x nyttjar
+
+int* a = new int(8); pekare a till minne som är en inte (med värdet 8).
+delete a; tar bort innehållet i minnescellen som a pekar på.

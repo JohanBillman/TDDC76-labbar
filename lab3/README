@@ -1,0 +1,21 @@
+TDDC76 Programmering och datastrukturer, Laboration 3
+------------------------------------------------------------------------------
+Given kod m.m.
+
+Mappen Calculator
+-----------------
+I mappen Calculator finns huvudprogramet och huvudklassen Calculator. Se vidare
+README i den mappen.
+
+Mappen Expression
+-----------------
+I mappen Expression ska klassen Expression och klasshierarkin Expression_Tree
+för trädnodklasserna definieras. Se vidare README i den mappen.
+
+Mappen Variable_Table
+---------------------
+Om VG-nivån löses ska denna mapp införas vid sidan av mapparna Calculator och
+Expression. Filerna för klassen Variable_Table ska finnas här, tillsammans med
+eventuellt testprogram för Variable_Table.
+
+------------------------------------------------------------------------------

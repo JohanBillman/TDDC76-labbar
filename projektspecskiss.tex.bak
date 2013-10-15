@@ -1,0 +1,100 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{alltt}
+\usepackage[T1]{fontenc}
+\usepackage[swedish]{babel}
+\usepackage{mathtools}
+\usepackage{lmodern}
+\usepackage{units}
+\usepackage{icomma}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{bbm}
+\usepackage{tabularx}
+\newcommand{\N}{\ensuremath{\mathbbm{N}}}
+\newcommand{\Z}{\ensuremath{\mathbbm{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbbm{Q}}}
+\newcommand{\R}{\ensuremath{\mathbbm{R}}}
+\newcommand{\C}{\ensuremath{\mathbbm{C}}}
+\newcommand{\rd}{\ensuremath{\mathrm{d}}}
+\newcommand{\id}{\ensuremath{\,\rd}}
+\usepackage{hyperref}
+\usepackage[noindentafter]{titlesec}
+\usepackage{color}
+\renewcommand{\abstractname}{Sammanfattning}
+
+
+
+
+\title{Ett äventyr in i LiUs mörker \\ \vspace{2 mm} {\large Kravspecifikation}}
+
+\author{Johan Billman, Hannah Dysenius, \\
+Sofie Griph, Nils Hallqvist, Emma Värbrand}
+\date{\today}
+\begin{document}
+
+\maketitle
+\newpage
+\begin{abstract}
+Detta dokument innehåller krav och mål för gruppens projekt i kursen TDDC76. Dokumentet beskriver ett klassikt towerdefense med mycket en spännande ekonomisk aspekt. I dokumentet återfinns en beskrivning av produkten och vilka krav som finns på den.
+\end{abstract}
+\newpage
+\tableofcontents
+\newpage
+\section{Inledning}
+Detta projekt går ut på att göra ett klassiskt towerdefense med en ekonomisk aspekt. Spelaren ska kunna ta sönder olika objekt som rör sig längs en bana med hjälp av torn som skjuter åt olika håll. Nya torn kan köpas av spelaren under spelets gång. Vinst uppnås då spelaren innehar en viss summa pengar och den förlorar om den får ett negativt belopp. Detta gör att spelaren tvingas fundera över hur den bäst investerar sina pengar för att kunna vinna spelet. 
+
+\newpage
+\section{Systembeskrivning}
+Produkten är ett klassiskt towerdefensespel med mycket inspiration från Bloons TD.
+Spelet går ut på att hindra objekt från ta sig igenom en fördefinierad bana. Objekten kan vara olika svåra att förstöra. För att hindra objektens framfart köper spelaren olika torn och placerar ut dessa längs banan. Tornen kostnad och effektivt kan variera.
+För sina insatser med att förstöra objekten så belönas spelaren med pengar i relation till hur svårt objektet var att förstöra.
+
+För att vinna måste spelaren inneha en viss summa pengar. Om spelaren misslyckas med att hindra alla objekt från att ta sig igenom banan måste spelaren betala straffavgifter. Spelaren förlorar om spelaren avslutar en runda med negativt kapital. 
+
+Banan är konstant. Vilka som kommer är slumpmässigt bestämt viktat av hur länge spelet pågått. 
+
+\newpage
+\section{Användargränssnitt}
+Ett grafiskt gränssnitt där interaktion sker med musklick. Se bifogad bild. 
+
+\newpage
+\section{Systemfunktioner}
+\subsection{Absoluta krav}
+
+\begin{itemize}
+\item En spelplan
+\item Given väg på spelplanen
+\item En typ av objekt (att döda)
+\item En typ av torn
+\item Startmeny
+\item Statusruta
+\item Meny där man kan köpa saker
+\item Musstryning
+\item Tornen ska kunna skjuta
+\item Objekten ska kunna dö
+\item Pengar ska hanteras enligt reglerna
+\item Slumpmässigt bestämd mängd objekt som kommer
+\item Hjälptext på startmenyn
+\item Vinst- och förslutvillkor ska kontrolleras
+
+\end{itemize}
+
+\subsection{Relativa krav}
+\begin{itemize}
+
+\item Flera typer av torn
+\item Flera typer av objekt
+\item Bättre grafiska representationer
+\item Slumpgenerad bana
+\item Slumpmässiga händelser
+\item Möjlighet att spara sitt spel
+\end{itemize}
+\newpage
+\section{Lagring av permanenta data}
+
+Enda gången spelet skapar permanenta data är om sparning sker. Beskrivning av detta sker om det implementeras.
+\newpage
+
+\end{document}
