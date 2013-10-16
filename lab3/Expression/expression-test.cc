@@ -79,8 +79,11 @@
    cout << "e2.get_postfix() = " << e2.get_postfix() << '\n';
    cout << "e2.empty() = " << e2.empty() << '\n';
    cout << "e5.empty() = " << e5.empty() << "\n\n";
+   
 
-   e5.print_tree(cout);
+   Expression_Tree* t2{new Plus{new Times{new Real{3.12}, new Integer{12}} , new Times{new Integer{7}, new Real{3.14}} }};
+   Expression e6{t2}; 
+   e6.print_tree(cout);
 
    return 0;
 }

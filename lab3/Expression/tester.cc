@@ -22,6 +22,7 @@ int main(int argc, char const *argv[])
 	std::cout << f->evaluate() << std::endl;
 	f->print(std::cout);
 	std::cout << f->get_postfix() << std::endl;
+	std::cout << f->get_infix() << std::endl;
 
 	std::cout << std::endl << std::endl << std::endl;
 	std::cout << f->str();

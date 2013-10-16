@@ -7,18 +7,7 @@
 
 // SEPARATA DEFINITIONER FÖR FÖR EXPRESSION_TREE-KLASSERNA DEFINIERAS HÄR.
 //frågor
-//1. Variabler och dynamic cast.
-//2.	varför skriver vi inte i clone:
-	  //return new Times(left->clone(),right->clone()); 
-
-		//new_left = left->clone();
-		//new_right = right->clone();
-		//temp = new Times(new_left, new_right);
-
-//3. Är utskriften från expression-test.cc korrekt? 
-//4. Vad är värdet (evaluate) och postfixet för ett tomt träd?
-//5. Fråga om hur man gör om till infix
-//6. Fråga om hur de med felhantering i make_expression_tree
+//1. Fråga om hur de med felhantering i make_expression_tree
 
 
 
@@ -53,7 +42,7 @@
 }
 
 string Binary_Operator::get_infix() const{
-	return "(" + left->get_infix() + " " + this->str() + " " + right->get_infix() + ")");
+	return "(" + left->get_infix() + " " + this->str() + " " + right->get_infix() + ")";
 }
 
 string Operand::get_infix() const{
@@ -148,7 +137,7 @@ string Times::str() const{
 
 
 Assign::Assign(Expression_Tree* l, Expression_Tree* r) : Binary_Operator(l,r){
-	if(not isalpha(l->str()[0] and r->str().size()==0)){
+	if(!(isalpha(l->str()[0]) and l->str().size() ==1)){
 		throw expression_error("Det får endast stå variabler till vänster om =");
 	}
 }
@@ -295,8 +284,6 @@ Expression_Tree* Times::clone() const{
 		new_left = left->clone();
 		new_right = right->clone();
 		temp = new Times(new_left, new_right);
-		//varför skriver vi inte:
-		//return new Times(left->clone(),right->clone())
 	}
 	catch(...){
 		delete new_right;

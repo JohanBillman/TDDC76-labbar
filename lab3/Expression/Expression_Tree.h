@@ -43,6 +43,7 @@ public:
 	virtual std::string      str() const = 0;
 	virtual void             print(std::ostream&, unsigned int = 1) const = 0;
  	virtual Expression_Tree* clone() const = 0;
+ 	virtual std::string      get_infix() const = 0;
 };
 
 class Binary_Operator : public Expression_Tree
@@ -69,6 +70,7 @@ public:
 	void print(std::ostream&, unsigned int = 1) const;
 //protected:
 	std::string get_postfix() const;
+	std::string get_infix() const;
 };
 
 

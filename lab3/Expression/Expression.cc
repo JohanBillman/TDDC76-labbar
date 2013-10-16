@@ -25,26 +25,37 @@
  */
  long double Expression::evaluate() const{
  	if(topNode == nullptr){
-      return 0;
-      //throw expression_error("Uttrycket är tomt");
- 	}
- 	return topNode->evaluate();
- }
+    throw expression_error("Uttrycket är tomt");
+  }
+  return topNode->evaluate();
+}
 
 /*
  * get_postfix()
  */
  std::string Expression::get_postfix() const{
  	if(topNode == nullptr){
- 		return "";
+ 		throw expression_error("Uttrycket är tomt");
    }
    return topNode->get_postfix();
-}
+ }
 
-std::string Expression::get_infix() const{
+ std::string Expression::get_infix() const{
   if(topNode == nullptr){
     return "";
   }
+  string infix = topNode->get_infix();
+  infix.erase(0,1);
+  infix.erase(infix.size()-1,1);
+  
+  int assignment = infix.find("=");
+  if(assignment != string::npos){
+    infix.erase(assignment + 2,1);
+    infix.erase(infix.size()-1,1);
+  }
+
+  return infix;
+
 }
 
 /*
@@ -64,8 +75,8 @@ std::string Expression::get_infix() const{
 
    os << "Värde..: " << this->evaluate() << endl;
    os << "Postfix: " << this->get_postfix() << endl;
-   //os << "Infix..: " << this->get_infix() << endl;
-}
+   os << "Infix..: " << this->get_infix() << endl;
+ }
 
 /*
  * swap(other)
@@ -73,13 +84,13 @@ std::string Expression::get_infix() const{
  void Expression::swap(Expression& tree)
  {
    if(tree.topNode == nullptr){
-      tree.topNode = topNode;
-      topNode = nullptr;
-   }else{
-     Expression_Tree* temp = (tree.topNode)->clone();
-     tree.topNode = topNode;
-     topNode = temp; 
-  }
+    tree.topNode = topNode;
+    topNode = nullptr;
+  }else{
+   Expression_Tree* temp = (tree.topNode)->clone();
+   tree.topNode = topNode;
+   topNode = temp; 
+ }
 
 }
 
@@ -99,7 +110,7 @@ void Expression::set_topNode(Expression_Tree* newtopNode){
    Expression_Tree* temp = (tree1.get_topNode())->clone();
    tree1.set_topNode(tree2.get_topNode());
    tree2.set_topNode(temp);
-}
+ }
 
 /*
  * make_expression() definieras efter namnrymden nedan.
@@ -336,101 +347,98 @@ void Expression::set_topNode(Expression_Tree* newtopNode){
 
    // make_expression_tree tar en postfixsträng och returnerar ett motsvarande 
    // länkat träd av Expression_Tree-noder.
- 	Expression_Tree* make_expression_tree(const std::string& postfix)
- 	{
- 		using std::stack;
- 		using std::string;
- 		using std::istringstream;
-
- 		stack<Expression_Tree*> tree_stack;
- 		string                  token;
- 		istringstream           ps{postfix};
-
- 		while (ps >> token)
- 		{
- 			if (is_operator(token))
- 			{
- 				if (tree_stack.empty()) 
- 				{
- 					std::cerr << "felaktig postfix\n";
- 					exit(EXIT_FAILURE);
- 				}
- 				Expression_Tree* rhs{tree_stack.top()};
- 				tree_stack.pop();
-
- 				if (tree_stack.empty()) 
- 				{
- 					std::cerr << "felaktig postfix\n";
- 					exit(EXIT_FAILURE);
- 				}
- 				Expression_Tree* lhs{tree_stack.top()};
- 				tree_stack.pop();
-
- 				if (token == "^")
- 				{
- 					tree_stack.push(new Power{lhs, rhs});
- 				}
- 				else if (token == "*")
- 				{
- 					tree_stack.push(new Times{lhs, rhs});
- 				}
- 				else if (token == "/")
- 				{
- 					tree_stack.push(new Divide{lhs, rhs});
- 				}
- 				else if (token == "+")
- 				{
- 					tree_stack.push(new Plus{lhs, rhs});
- 				}
- 				else if (token == "-")
- 				{
- 					tree_stack.push(new Minus{lhs, rhs});
- 				}
- 				else if (token == "=")
- 				{
- 					tree_stack.push(new Assign{lhs, rhs});
- 				}
- 			}
- 			else if (is_integer(token))
- 			{
- 				tree_stack.push(new Integer{std::stoll(token.c_str())});
- 			}
- 			else if (is_real(token))
- 			{
- 				tree_stack.push(new Real{std::stold(token.c_str())});
- 			}
- 			else if (is_identifier(token))
- 			{
- 				tree_stack.push(new Variable{token});
- 			}
- 			else
- 			{
- 				std::cerr << "felaktig postfix\n";
- 				exit(EXIT_FAILURE);
- 			}
- 		}
+  Expression_Tree* make_expression_tree(const std::string& postfix)
+  {
+    using std::stack;
+    using std::string;
+    using std::istringstream;
+    stack<Expression_Tree*> tree_stack;
+    string                  token;
+    istringstream           ps{postfix};
+    while (ps >> token)
+    {
+      if (is_operator(token))
+      {
+       if (tree_stack.empty()) 
+       {
+        throw expression_error ("felaktig postfix\n");
+      }
+      Expression_Tree* rhs{tree_stack.top()};
+      tree_stack.pop();
+      if (tree_stack.empty()) 
+      {
+        throw expression_error ("felaktig postfix\n");
+      }
+      Expression_Tree* lhs{tree_stack.top()};
+      tree_stack.pop();
+      try{
+        if (token == "^")
+        {
+          tree_stack.push(new Power{lhs, rhs});
+        }
+        else if (token == "*")
+        {
+          tree_stack.push(new Times{lhs, rhs});
+        }
+        else if (token == "/")
+        {
+          tree_stack.push(new Divide{lhs, rhs});
+        }
+        else if (token == "+")
+        {
+          tree_stack.push(new Plus{lhs, rhs});
+        }
+        else if (token == "-")
+        {
+          tree_stack.push(new Minus{lhs, rhs});
+        }
+        else if (token == "=")
+        {
+          tree_stack.push(new Assign{lhs, rhs});
+        }
+      }
+      else if (is_integer(token))
+      {
+       tree_stack.push(new Integer{std::stoll(token.c_str())});
+     }
+     else if (is_real(token))
+     {
+       tree_stack.push(new Real{std::stold(token.c_str())});
+     }
+     else if (is_identifier(token))
+     {
+       tree_stack.push(new Variable{token});
+     }
+     else
+     {
+       throw expression_error ("felaktig postfix\n");
+     }
+   }
+   catch(...){
+    while (!tree_stack.empty())
+    {
+     delete tree_stack.top();
+     tree_stack.pop();
+   }
+   throw;
+ }
       // Det ska bara finnas ett träd på stacken om korrekt postfix.
-
- 		if (tree_stack.empty())
- 		{
- 			std::cerr << "ingen postfix given\n";
- 			exit(EXIT_FAILURE);
- 		}
-
- 		if (tree_stack.size() > 1)
- 		{
- 			while (!tree_stack.empty())
- 			{
- 				delete tree_stack.top();
- 				tree_stack.pop();
- 			}
- 			std::cerr << "felaktig postfix\n";
- 			exit(EXIT_FAILURE);
- 		}
-
+ if (tree_stack.empty())
+ {
+  throw expression_error ("Inget postfix given\n");
+}
+if (tree_stack.size() > 1)
+{
+  while (!tree_stack.empty())
+  {
+   delete tree_stack.top();
+   tree_stack.pop();
+ }
+ throw expression_error ("felaktig postfix\n");
+}
       // Returnera trädet.
- 		return tree_stack.top();
- 	}
+return tree_stack.top();
+}
 } // namespace
 
 Expression make_expression(const string& infix)
