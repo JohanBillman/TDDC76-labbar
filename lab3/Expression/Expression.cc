@@ -41,6 +41,12 @@
    return topNode->get_postfix();
 }
 
+std::string Expression::get_infix() const{
+  if(topNode == nullptr){
+    return "";
+  }
+}
+
 /*
  * empty()
  */

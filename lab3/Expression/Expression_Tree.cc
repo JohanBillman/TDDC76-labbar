@@ -53,7 +53,11 @@
 }
 
 string Binary_Operator::get_infix() const{
-	
+	return "(" + left->get_infix() + " " + this->str() + " " + right->get_infix() + ")");
+}
+
+string Operand::get_infix() const{
+	return this->str();
 }
 
 string Operand::get_postfix() const{
