@@ -10,6 +10,7 @@
 #include <stdexcept>
 #include <math.h>
 #include <sstream>
+#include <stdexcept>
  
 /*
  * expression_error: kastas om ett fel inträffar i en Expression-operation;
@@ -55,6 +56,7 @@ public:
 	Expression_Tree* left;
 	Expression_Tree* right;
 	std::string get_postfix() const;
+	std::string get_infix() const;
 
 };
 
@@ -84,7 +86,7 @@ class Assign : public Binary_Operator
 {
 public:
 	Assign(Expression_Tree*, Expression_Tree*);
-	~Assign();
+	~Assign() = default;
 	long double evaluate() const;
 	std::string str() const;
 	Expression_Tree* clone() const; 
@@ -174,6 +176,10 @@ private:
 };
 
 
-
+class expression_error : public std::logic_error{
+ 	public:
+ 		explicit expression_error(const std::string& what_arg) noexcept
+ 		: logic_error(what_arg) {}
+ 	};
 
 #endif

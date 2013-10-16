@@ -5,14 +5,15 @@
 #include "Expression_Tree.h"
 #include <iostream>
 #include <stdexcept>
-using namespace std;
+ using namespace std;
 
-int main()
-{
+ int main()
+ {
    Expression e1;  // defaultkonstruktor
 
-   if (e1.empty())
+   if (e1.empty()){
       cout << "Tomt uttryck!\n";
+   }
    else
       cout << "e1.evaluate() = " << e1.evaluate() << '\n';
 
@@ -33,11 +34,11 @@ int main()
    cout << "e2.get_postfix() = " << e2.get_postfix() << '\n';
    cout << "e2.empty() = " << e2.empty() << "\n\n";
    
+   
    e2.swap(e1);  // swap
-
    // Resten kräver implementering av Expression_Tree-klasserna.
 
-/*
+
    Expression_Tree* t{new Plus{new Integer{7}, new Real{3.14}}};
 
    Expression e3{t};  // konstruktor som tar ett länkat uttrycksträd
@@ -79,7 +80,7 @@ int main()
    cout << "e2.empty() = " << e2.empty() << '\n';
    cout << "e5.empty() = " << e5.empty() << "\n\n";
 
-*/
+   e5.print_tree(cout);
 
    return 0;
 }

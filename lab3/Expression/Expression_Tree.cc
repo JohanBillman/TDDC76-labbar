@@ -6,6 +6,20 @@
  using namespace std;
 
 // SEPARATA DEFINITIONER FÖR FÖR EXPRESSION_TREE-KLASSERNA DEFINIERAS HÄR.
+//frågor
+//1. Variabler och dynamic cast.
+//2.	varför skriver vi inte i clone:
+	  //return new Times(left->clone(),right->clone()); 
+
+		//new_left = left->clone();
+		//new_right = right->clone();
+		//temp = new Times(new_left, new_right);
+
+//3. Är utskriften från expression-test.cc korrekt? 
+//4. Vad är värdet (evaluate) och postfixet för ett tomt träd?
+//5. Fråga om hur man gör om till infix
+//6. Fråga om hur de med felhantering i make_expression_tree
+
 
 
  Expression_Tree::Expression_Tree(){};
@@ -35,13 +49,11 @@
  	os << setfill(' ') << setw(c + 1) << "\\" << endl;
  	left->print(os, c + 2);
 
-	if(c == 0){ //Flytta bort härifrån innan inlämning
-		os << "Värde..: " << this->evaluate();
-		os << "Postfix: " << this->get_postfix();
-		//os << "Infix..: " << this->get_infix();
-	}
-
 	return;
+}
+
+string Binary_Operator::get_infix() const{
+	
 }
 
 string Operand::get_postfix() const{
@@ -133,7 +145,7 @@ string Times::str() const{
 
 Assign::Assign(Expression_Tree* l, Expression_Tree* r) : Binary_Operator(l,r){
 	if(not isalpha(l->str()[0] and r->str().size()==0)){
-		//throw ******error("Det får endast stå variabler till vänster om =")
+		throw expression_error("Det får endast stå variabler till vänster om =");
 	}
 }
 
@@ -144,7 +156,10 @@ string Assign::str() const{
 
 long double Assign::evaluate() const{
 
-	left->set_value(right->evaluate());
+	Variable* leftVar = dynamic_cast<Variable*>(left);
+	if(leftVar == nullptr)
+		throw expression_error("Det måste vara en variabel till vänster om =");
+	leftVar->set_value(right->evaluate());
 	return right->evaluate();
 }
 

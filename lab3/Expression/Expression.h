@@ -23,17 +23,16 @@
 
  	Expression(class Expression_Tree* = nullptr);
 
-
  	long double evaluate() const;
  	std::string get_postfix() const;
  	bool        empty() const;
  	void        print_tree(std::ostream&) const;
  	void        swap(Expression&);
  	Expression_Tree* get_topNode() const;
+ 	void set_topNode(Expression_Tree*);
 
  private:
  	Expression_Tree* topNode;
-
 
  };
 

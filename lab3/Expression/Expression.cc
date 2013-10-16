@@ -16,7 +16,7 @@
 
 
 
- Expression(class Expression_Tree*  ptr){
+ Expression::Expression(class Expression_Tree*  ptr){
  	topNode = ptr;
  }
 
@@ -25,7 +25,8 @@
  */
  long double Expression::evaluate() const{
  	if(topNode == nullptr){
- 		//throw expression_error("Uttrycket är tomt");
+      return 0;
+      //throw expression_error("Uttrycket är tomt");
  	}
  	return topNode->evaluate();
  }
@@ -35,17 +36,17 @@
  */
  std::string Expression::get_postfix() const{
  	if(topNode == nullptr){
- 		//throw expression_error("Uttrycket är tomt");
- 	}
- 	return topNode->get_postfix();
- }
+ 		return "";
+   }
+   return topNode->get_postfix();
+}
 
 /*
  * empty()
  */
  bool Expression::empty() const
  {
- 	return (topNode == nullptr);
+ 	return topNode == nullptr;
  }
 
 /*
@@ -54,18 +55,27 @@
  void Expression::print_tree(std::ostream& os) const
  {
  	topNode->print(os);
- }
+
+   os << "Värde..: " << this->evaluate() << endl;
+   os << "Postfix: " << this->get_postfix() << endl;
+   //os << "Infix..: " << this->get_infix() << endl;
+}
 
 /*
  * swap(other)
  */
  void Expression::swap(Expression& tree)
  {
- 	Expression_Tree* temp = (tree.topNode)->clone();
- 	tree.topNode = topNode;
- 	topNode = temp; 
+   if(tree.topNode == nullptr){
+      tree.topNode = topNode;
+      topNode = nullptr;
+   }else{
+     Expression_Tree* temp = (tree.topNode)->clone();
+     tree.topNode = topNode;
+     topNode = temp; 
+  }
 
- }
+}
 
 Expression_Tree* Expression::get_topNode() const{
 	return topNode;
@@ -83,7 +93,7 @@ void Expression::set_topNode(Expression_Tree* newtopNode){
    Expression_Tree* temp = (tree1.get_topNode())->clone();
    tree1.set_topNode(tree2.get_topNode());
    tree2.set_topNode(temp);
- }
+}
 
 /*
  * make_expression() definieras efter namnrymden nedan.
